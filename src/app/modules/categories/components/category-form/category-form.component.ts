@@ -54,11 +54,7 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
 
   handleSubmitCategoryAction(): void {
 
-    if (this.categoriaAction.event.action === this.addCategoryAction) {
-      this.handleSubmitAddCategory();
-    } else if (this.categoriaAction.event.action === this.editCategoryAction) {
-      this.handleSubmitEditCategory();
-    }
+    this.categoriaAction.event.action === this.addCategoryAction ? this.handleSubmitAddCategory() : this.handleSubmitEditCategory();
 
     return;
   }
