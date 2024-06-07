@@ -95,22 +95,20 @@
             <td>{{ product.amount }}</td>
             <td>{{ product.price | currency: 'BRL' }}</td>
             <td [pTooltip]="product.description" tooltipPosition="top">
-              {{ product.description }}
+              {{ product.description | shorten: 25 }}
             </td>
             <td>{{ product.category.name }}</td>
             <td>
               <div class="flex justify-content-center gap-3 align-content-center align-items-center">
-                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning" pTooltip="Editar produto id: {{
-                    product.id
-                  }}" tooltipPosition="top" (click)="
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning"
+                  pTooltip="Editar produto" tooltipPosition="top" (click)="
                     handleProductEvent(
                       editProductEvent,
                       product?.id
                     )
                   "></button>
-                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" pTooltip="Remover produto id: {{
-                    product.id
-                  }}" tooltipPosition="top" (click)="
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                  pTooltip="Remover produto" tooltipPosition="top" (click)="
                     handleDeleteProduct(
                       product.id,
                       product.name
