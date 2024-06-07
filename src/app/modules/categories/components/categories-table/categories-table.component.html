@@ -39,7 +39,8 @@
                         <td>
                             <div class="flex justify-content-center gap-3 align-content-center align-items-center">
                                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning"
-                                    pTooltip="Editar Categoria" tooltipPosition="top"></button>
+                                    pTooltip="Editar Categoria" tooltipPosition="top"
+                                    (click)="handleCategoryEvent(editCategoryAction, category.id, category.name)"></button>
                                 <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
                                     pTooltip="Remover Categoria" tooltipPosition="top"
                                     (click)="handleDeleteCategoryEvent(category.id, category.name)"></button>

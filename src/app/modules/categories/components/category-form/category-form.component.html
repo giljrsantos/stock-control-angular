@@ -1,6 +1,6 @@
 <!--FORMULARIO DE NOVA CATEGORIA-->
-<div *ngIf="categoriaAction.event.action === addCategoryAction">
-    <form [formGroup]="categoryForm" (ngSubmit)="handleSubmitAddCategory()">
+<div>
+    <form [formGroup]="categoryForm" (ngSubmit)="handleSubmitCategoryAction()">
         <div class="card flex flex-column md:flex-colum gap-3">
             <!--Nome da categoria-->
             <input pInputText placeholder="Nome" formControlName="name" />

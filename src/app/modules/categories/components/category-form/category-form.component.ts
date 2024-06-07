@@ -2,13 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 
-import { CategoriesDataTransferService } from '@app/shared/services/categories/categories-data-transfer.service';
 import { CategoriesService } from '@app/services/categories/categories.service';
 import { CategoryEvent } from '@app/models/enums/categories/CategoriesEvent';
 import { DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ICreateCategoryRequest } from '@app/models/interfaces/categories/request/i-CreateCategoryRequest';
 import { IEditCategoryAction } from '@app/models/interfaces/categories/event/i-EditCategoryAction';
-import { IEventAction } from '@app/models/interfaces/products/event/i-EventAction';
+import { IEditCategoryRequest } from '@app/models/interfaces/categories/request/i-EditCategoryRequest';
 import { IGetCategoriesResponse } from '@app/models/interfaces/categories/response/i-GetCategoriesResponse';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
@@ -29,10 +28,13 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
     event: IEditCategoryAction;
   };
 
+  public categorySelectedDatas!: IGetCategoriesResponse;
+  public categoriesDatas: IGetCategoriesResponse[] = [];
 
   public categoryForm = this.formBuilder.group({
     name: ['', Validators.required]
-  })
+  });
+
 
   constructor(
     public ref: DynamicDialogConfig,
@@ -40,12 +42,25 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
     private messageService: MessageService,
     private categoriesService: CategoriesService,
     private router: Router,
-    private categoriesDtService: CategoriesDataTransferService,
   ) { }
   ngOnInit(): void {
-    this.categoriaAction = this.ref.data;
 
-    //this.categoriaAction.event.action
+    this.categoriaAction = this.ref.data;
+    if (this.categoriaAction.event.action === this.editCategoryAction && this.categoriaAction.event.categoryName !== null || undefined) {
+      this.setCategoryName(this.categoriaAction.event.categoryName as string);
+    }
+
+  }
+
+  handleSubmitCategoryAction(): void {
+
+    if (this.categoriaAction.event.action === this.addCategoryAction) {
+      this.handleSubmitAddCategory();
+    } else if (this.categoriaAction.event.action === this.editCategoryAction) {
+      this.handleSubmitEditCategory();
+    }
+
+    return;
   }
 
   handleSubmitAddCategory(): void {
@@ -79,8 +94,54 @@ export class CategoryFormComponent implements OnInit, OnDestroy {
           }
         })
     }
-    //this.categoryForm.reset();
+
   }
+
+
+  handleSubmitEditCategory(): void {
+    if (this.categoryForm.valid && this.categoryForm.value && this.categoriaAction.event.id) {
+
+      const requestEditCategory: IEditCategoryRequest = {
+        name: this.categoryForm.value.name as string,
+        category_id: this.categoriaAction.event.id as string,
+      }
+
+      this.categoriesService.editCategoryName(requestEditCategory)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: () => {
+            this.categoryForm.reset();
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Sucesso',
+              detail: `Categoria editado com sucesso!`,
+              life: 5000,
+            });
+          },
+          error: (err) => {
+            console.log(err);
+            this.categoryForm.reset();
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erro',
+              detail: `Erro ao editar Categoria!`,
+              life: 5000,
+            });
+          }
+        })
+    }
+
+  }
+
+  setCategoryName(categoryName: string): void {
+    if (categoryName) {
+      this.categoryForm.setValue({
+        name: categoryName,
+      });
+    }
+  }
+
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();

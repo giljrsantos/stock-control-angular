@@ -5,8 +5,10 @@ import {
 
 import { CookieService } from 'ngx-cookie-service';
 import { ICreateCategoryRequest } from '@app/models/interfaces/categories/request/i-CreateCategoryRequest';
+import { IEditCategoryRequest } from '@app/models/interfaces/categories/request/i-EditCategoryRequest';
 import { IGetCategoriesResponse } from '@app/models/interfaces/categories/response/i-GetCategoriesResponse';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -34,6 +36,19 @@ export class CategoriesService {
       createRequest,
       this.httpOptions
 
+    )
+  }
+
+  editCategoryName(editRequest: IEditCategoryRequest): Observable<void> {
+    return this.http.put<void>(
+      `${this.API_URL}/category/edit`,
+      { name: editRequest.name },
+      {
+        ...this.httpOptions,
+        params: {
+          category_id: editRequest.category_id
+        }
+      }
     )
   }
 
