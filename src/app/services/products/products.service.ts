@@ -10,6 +10,8 @@ import { ICreateProductResponse } from '@app/models/interfaces/products/response
 import { IDeleteProductResponse } from '@app/models/interfaces/products/response/i-DeleteProductResponse';
 import { IEditProductRequest } from '@app/models/interfaces/products/request/i-EditProductRequest';
 import { IGetAllProductsResponse } from '@app/models/interfaces/products/response/i-GetAllProductsResponse';
+import { ISaleProductRequest } from '@app/models/interfaces/products/request/i-SaleProductRequest';
+import { ISaleProductResponse } from '@app/models/interfaces/products/response/i-SaleProductResponse';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
@@ -74,5 +76,20 @@ export class ProductsService {
         },
       },
     );
+  }
+
+  saleProduct(requestSaleData: ISaleProductRequest) {
+    return this.http.put<ISaleProductResponse>(
+      `${this.API_URL}/product/sale`,
+      {
+        amount: requestSaleData.amount
+      },
+      {
+        ...this.httpOptions,
+        params: {
+          product_id: requestSaleData.product_id
+        }
+      }
+    )
   }
 }

@@ -8,8 +8,9 @@
       styleClass="bg-indigo-800 p-button-secondary" routerLinkActive="exact_route"></p-button>
     <p-button icon="pi pi-ticket" class="mr-2" label="Categoria" routerLink="/categories"
       styleClass="bg-indigo-800 p-button-secondary" routerLinkActive="exact_route"></p-button>
-    <p-button icon="pi pi-credit-card" class="mr-2" label="Efetuar Venda" routerLink="/sales"
-      styleClass="bg-indigo-800 p-button-secondary" routerLinkActive="exact_route"></p-button>
+    <p-button icon="pi pi-credit-card" class="mr-2" label="Efetuar Venda" routerLink="/products"
+      styleClass="bg-indigo-800 p-button-secondary" routerLinkActive="exact_route"
+      (onClick)="handleSaleProduct()"></p-button>
   </div>
 
   <div class="p-toolbar-group-end">
