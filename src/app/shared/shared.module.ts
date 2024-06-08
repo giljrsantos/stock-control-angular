@@ -32,4 +32,4 @@ import { ToolbarNavigationComponent } from './components/toolbar-navigation/tool
   exports: [ToolbarNavigationComponent, ShortenPipe],
   providers: [DialogService, CurrencyPipe],
 })
-export class SharedModule { }
+export class SharedModule {}

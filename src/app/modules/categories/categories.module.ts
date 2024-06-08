@@ -1,5 +1,11 @@
-import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  DialogService,
+  DynamicDialogModule,
+} from 'primeng/dynamicdialog';
+import {
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
 import { ButtonModule } from 'primeng/button';
 import { CATEGORIES_ROUTES } from './categories.routing';
@@ -27,7 +33,7 @@ import { CategoryFormComponent } from './components/category-form/category-form.
   declarations: [
     CategoriesHomeComponent,
     CategoriesTableComponent,
-    CategoryFormComponent
+    CategoryFormComponent,
   ],
   imports: [
     CommonModule,
@@ -53,4 +59,4 @@ import { CategoryFormComponent } from './components/category-form/category-form.
   ],
   providers: [DialogService, ConfirmationService],
 })
-export class CategoriesModule { }
+export class CategoriesModule {}

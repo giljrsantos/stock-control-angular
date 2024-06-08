@@ -26,7 +26,8 @@ import { Router } from '@angular/router';
   styleUrls: [],
 })
 export class ProductsHomeComponent
-  implements OnInit, OnDestroy {
+  implements OnInit, OnDestroy
+{
   private readonly destroy$: Subject<void> = new Subject();
 
   private ref!: DynamicDialogRef;
@@ -40,7 +41,7 @@ export class ProductsHomeComponent
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private dialogService: DialogService,
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.getServiceProductsDatas();
   }

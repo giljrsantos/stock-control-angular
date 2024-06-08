@@ -1,4 +1,4 @@
 export interface ISaleProductRequest {
-    amount: number;
-    product_id: string
+  amount: number;
+  product_id: string;
 }

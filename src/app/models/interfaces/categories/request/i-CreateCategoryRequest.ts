@@ -1,3 +1,3 @@
 export interface ICreateCategoryRequest {
-    name: string;
+  name: string;
 }

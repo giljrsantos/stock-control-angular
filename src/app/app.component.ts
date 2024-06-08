@@ -10,12 +10,12 @@ import { PrimeNGConfig } from 'primeng/api';
 export class AppComponent implements OnInit {
   title = 'stock-control';
 
-  constructor(private primeConfig: PrimeNGConfig) { }
+  constructor(private primeConfig: PrimeNGConfig) {}
   ngOnInit(): void {
     this.primeConfig.ripple = true;
     this.primeConfig.setTranslation({
       apply: 'Aplicar',
-      clear: 'Limpar'
-    })
+      clear: 'Limpar',
+    });
   }
 }

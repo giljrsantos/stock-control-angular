@@ -28,28 +28,29 @@ export class CategoriesService {
   constructor(
     private http: HttpClient,
     private cookie: CookieService,
-  ) { }
+  ) {}
 
   createCategory(createRequest: ICreateCategoryRequest) {
     return this.http.post<IGetCategoriesResponse>(
       `${this.API_URL}/category`,
       createRequest,
-      this.httpOptions
-
-    )
+      this.httpOptions,
+    );
   }
 
-  editCategoryName(editRequest: IEditCategoryRequest): Observable<void> {
+  editCategoryName(
+    editRequest: IEditCategoryRequest,
+  ): Observable<void> {
     return this.http.put<void>(
       `${this.API_URL}/category/edit`,
       { name: editRequest.name },
       {
         ...this.httpOptions,
         params: {
-          category_id: editRequest.category_id
-        }
-      }
-    )
+          category_id: editRequest.category_id,
+        },
+      },
+    );
   }
 
   getAllCategories() {
@@ -65,9 +66,9 @@ export class CategoriesService {
       {
         ...this.httpOptions,
         params: {
-          category_id: requestDatas.category_id
-        }
-      }
-    )
+          category_id: requestDatas.category_id,
+        },
+      },
+    );
   }
 }

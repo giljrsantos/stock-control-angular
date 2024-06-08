@@ -14,8 +14,8 @@ export class ToolbarNavigationComponent {
   constructor(
     private cookie: CookieService,
     private router: Router,
-    private dialogService: DialogService
-  ) { }
+    private dialogService: DialogService,
+  ) {}
 
   handleLogout(): void {
     this.cookie.delete('USER_INFO');
@@ -23,7 +23,8 @@ export class ToolbarNavigationComponent {
   }
 
   handleSaleProduct(): void {
-    const saleProductAction = ProductEvent.SALE_PRODUCT_EVENT;
+    const saleProductAction =
+      ProductEvent.SALE_PRODUCT_EVENT;
     this.dialogService.open(ProductFormComponent, {
       header: saleProductAction,
       width: '70%',
@@ -31,8 +32,8 @@ export class ToolbarNavigationComponent {
       baseZIndex: 10000,
       maximizable: true,
       data: {
-        event: { action: saleProductAction }
-      }
-    })
+        event: { action: saleProductAction },
+      },
+    });
   }
 }

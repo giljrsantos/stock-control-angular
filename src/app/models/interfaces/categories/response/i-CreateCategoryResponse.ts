@@ -1,3 +1,3 @@
 export interface ICreateCategoryResponse {
-    name: string;
+  name: string;
 }

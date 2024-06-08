@@ -32,11 +32,13 @@ export class ProductsService {
   constructor(
     private http: HttpClient,
     private cookie: CookieService,
-  ) { }
+  ) {}
 
   getAllProducts() {
     return this.http
-      .get<IGetAllProductsResponse[]>(`${this.API_URL}/products`, this.httpOptions)
+      .get<
+        IGetAllProductsResponse[]
+      >(`${this.API_URL}/products`, this.httpOptions)
       .pipe(
         map((product) =>
           product.filter((data) => data?.amount > 0),
@@ -82,14 +84,14 @@ export class ProductsService {
     return this.http.put<ISaleProductResponse>(
       `${this.API_URL}/product/sale`,
       {
-        amount: requestSaleData.amount
+        amount: requestSaleData.amount,
       },
       {
         ...this.httpOptions,
         params: {
-          product_id: requestSaleData.product_id
-        }
-      }
-    )
+          product_id: requestSaleData.product_id,
+        },
+      },
+    );
   }
 }

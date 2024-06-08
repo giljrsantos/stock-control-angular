@@ -2,8 +2,8 @@ import { CategoriesHomeComponent } from './page/categories-home/categories-home.
 import { Routes } from '@angular/router';
 
 export const CATEGORIES_ROUTES: Routes = [
-    {
-        path: '',
-        component: CategoriesHomeComponent,
-    },
+  {
+    path: '',
+    component: CategoriesHomeComponent,
+  },
 ];

@@ -29,12 +29,16 @@ import { Router } from '@angular/router';
   styleUrls: [],
 })
 export class ProductFormComponent
-  implements OnInit, OnDestroy {
+  implements OnInit, OnDestroy
+{
   private readonly destroy$: Subject<void> = new Subject();
 
   public categoriesDatas: IGetCategoriesResponse[] = [];
 
-  public selectedCategory: Array<{ name: string; code: string }> = [];
+  public selectedCategory: Array<{
+    name: string;
+    code: string;
+  }> = [];
 
   public productAction!: {
     event: IEventAction;
@@ -42,8 +46,6 @@ export class ProductFormComponent
   };
 
   public productSelectedDatas!: IGetAllProductsResponse;
-
-
 
   public productsDatas: IGetAllProductsResponse[] = [];
 
@@ -64,7 +66,7 @@ export class ProductFormComponent
 
   public saleProductForm = this.formBuilder.group({
     amount: [0, Validators.required],
-    product_id: ['', Validators.required]
+    product_id: ['', Validators.required],
   });
 
   public saleProductSelected!: IGetAllProductsResponse;
@@ -72,8 +74,10 @@ export class ProductFormComponent
   public renderDropdown: boolean = false;
 
   public addProductAction = ProductEvent.ADD_PRODUCT_EVENT;
-  public editProductAction = ProductEvent.EDIT_PRODUCT_EVENT;
-  public saleProductAction = ProductEvent.SALE_PRODUCT_EVENT;
+  public editProductAction =
+    ProductEvent.EDIT_PRODUCT_EVENT;
+  public saleProductAction =
+    ProductEvent.SALE_PRODUCT_EVENT;
 
   constructor(
     private categoriesService: CategoriesService,
@@ -83,12 +87,12 @@ export class ProductFormComponent
     private productsService: ProductsService,
     public ref: DynamicDialogConfig,
     private producstDtService: ProductsDataTransferService,
-  ) { }
+  ) {}
   ngOnInit(): void {
     this.productAction = this.ref.data;
 
-
-    this.productAction?.event?.action === this.saleProductAction && this.getProductDatas()
+    this.productAction?.event?.action ===
+      this.saleProductAction && this.getProductDatas();
 
     this.getAllCategories();
 
@@ -104,10 +108,15 @@ export class ProductFormComponent
           if (response.length > 0) {
             this.categoriesDatas = response;
 
-            if (this.productAction?.event?.action === this.editProductAction && this.productAction?.productData) {
-              this.getProductSelectedDatas(this.productAction?.event?.id as string);
+            if (
+              this.productAction?.event?.action ===
+                this.editProductAction &&
+              this.productAction?.productData
+            ) {
+              this.getProductSelectedDatas(
+                this.productAction?.event?.id as string,
+              );
             }
-
           }
         },
         error: (err) => {
@@ -174,32 +183,37 @@ export class ProductFormComponent
       const requestEditProduct: IEditProductRequest = {
         name: this.editProductForm.value.name as string,
         price: this.editProductForm.value.price as string,
-        description: this.editProductForm.value.description as string,
+        description: this.editProductForm.value
+          .description as string,
         product_id: this.productAction?.event?.id,
         amount: Number(this.editProductForm.value.amount),
-        category_id: this.editProductForm.value.category_id as string,
-      }
-      this.productsService.editProduct(requestEditProduct).pipe(takeUntil(this.destroy$)).subscribe({
-        next: () => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Sucesso',
-            detail: `Produto editado com sucesso!`,
-            life: 5000,
-          });
-          //this.editProductForm.reset();
-        },
-        error: (err) => {
-          console.log(err)
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Erro',
-            detail: `Erro ao editar Produdo!`,
-            life: 5000,
-          });
-          //this.editProductForm.reset();
-        }
-      });
+        category_id: this.editProductForm.value
+          .category_id as string,
+      };
+      this.productsService
+        .editProduct(requestEditProduct)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Sucesso',
+              detail: `Produto editado com sucesso!`,
+              life: 5000,
+            });
+            //this.editProductForm.reset();
+          },
+          error: (err) => {
+            console.log(err);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erro',
+              detail: `Erro ao editar Produdo!`,
+              life: 5000,
+            });
+            //this.editProductForm.reset();
+          },
+        });
     }
   }
 
@@ -208,13 +222,14 @@ export class ProductFormComponent
       this.saleProductForm.value &&
       this.saleProductForm.valid
     ) {
-
       const requestSaleData: ISaleProductRequest = {
         amount: this.saleProductForm.value.amount as number,
-        product_id: this.saleProductForm.value.product_id as string
-      }
+        product_id: this.saleProductForm.value
+          .product_id as string,
+      };
 
-      this.productsService.saleProduct(requestSaleData)
+      this.productsService
+        .saleProduct(requestSaleData)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (response) => {
@@ -227,9 +242,10 @@ export class ProductFormComponent
               });
               this.saleProductForm.reset();
               this.getProductDatas();
-              this.router.navigate(['/dashboard'])
+              this.router.navigate(['/dashboard']);
             }
-          }, error: (err) => {
+          },
+          error: (err) => {
             console.log(err);
             this.saleProductForm.reset();
             this.messageService.add({
@@ -238,9 +254,8 @@ export class ProductFormComponent
               detail: `Erro ao vender Produdo!`,
               life: 5000,
             });
-          }
-        })
-
+          },
+        });
     }
   }
 
@@ -256,8 +271,10 @@ export class ProductFormComponent
           name: this.productSelectedDatas.name,
           price: this.productSelectedDatas.price,
           amount: this.productSelectedDatas.amount,
-          description: this.productSelectedDatas.description,
-          category_id: this.productSelectedDatas.category.id,
+          description:
+            this.productSelectedDatas.description,
+          category_id:
+            this.productSelectedDatas.category.id,
         });
       }
     }
@@ -273,7 +290,7 @@ export class ProductFormComponent
             this.productsDatas = response;
             this.productsDatas &&
               this.producstDtService.setProductsData(
-                this.productsDatas
+                this.productsDatas,
               );
           }
         },

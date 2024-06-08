@@ -31,4 +31,4 @@ import { ToastModule } from 'primeng/toast';
   providers: [CookieService, MessageService],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
