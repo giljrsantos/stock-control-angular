@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -14,10 +20,13 @@ import { UserService } from '@app/services/user/user.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnDestroy, AfterViewInit {
-
-  @ViewChild('emailInput') public emailInputRef!: ElementRef
-  @ViewChild('passwordInput') public passwordInputRef!: ElementRef
+export class HomeComponent
+  implements OnDestroy, AfterViewInit
+{
+  @ViewChild('emailInput')
+  public emailInputRef!: ElementRef;
+  @ViewChild('passwordInput')
+  public passwordInputRef!: ElementRef;
 
   private destroy$ = new Subject<void>();
 
@@ -40,12 +49,20 @@ export class HomeComponent implements OnDestroy, AfterViewInit {
     private cookieService: CookieService,
     private messageService: MessageService,
     private router: Router,
-  ) { }
+  ) {}
   ngAfterViewInit(): void {
-    this.emailInputRef.nativeElement.value = 'Seu Email Aqui';
-    this.passwordInputRef.nativeElement.value = 'Sua Senha aqui'
-    console.log('EMAIL INPUT', this.emailInputRef.nativeElement.value);
-    console.log('PASSWORD INPUT', this.passwordInputRef.nativeElement.value);
+    this.emailInputRef.nativeElement.value =
+      'Seu Email Aqui';
+    this.passwordInputRef.nativeElement.value =
+      'Sua Senha aqui';
+    console.log(
+      'EMAIL INPUT',
+      this.emailInputRef.nativeElement.value,
+    );
+    console.log(
+      'PASSWORD INPUT',
+      this.passwordInputRef.nativeElement.value,
+    );
   }
 
   onSubmitLoginForm(): void {
